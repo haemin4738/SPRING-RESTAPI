@@ -1,6 +1,10 @@
 {
+  "name": "my-app",
+  "version": "0.1.0",
+  "prettier": {
     "tabWidth": 4,
     "trailingComma": "all",
     "semi": false,
     "singleQuote": true
+  }
 }
