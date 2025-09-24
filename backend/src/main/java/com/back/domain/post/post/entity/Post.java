@@ -86,15 +86,15 @@ public class Post extends BaseEntity {
         return comments.remove(postComment);
     }
 
-    public void checkAutorCanModify(Member actor) {
-        if (!actor.equals(author)) {
-            throw new ServiceException("403-1", "%d번 글 삭제 권한이 없습니다.".formatted(getId()));
+    public void checkActorCanModify(Member actor) {
+        if (!actor.getUsername().equals(author.getUsername())) {
+            throw new ServiceException("403-1", "%d번 글 수정 권한이 없습니다.".formatted(getId()));
         }
     }
 
-    public void checkAuthorCanDelete(Member actor) {
-        if (!actor.equals(author)) {
-            throw new ServiceException("403-1", "%d번 글 수정 권한이 없습니다.".formatted(getId()));
+    public void checkActorCanDelete(Member actor) {
+        if (!actor.getUsername().equals(author.getUsername())) {
+            throw new ServiceException("403-1", "%d번 글 삭제 권한이 없습니다.".formatted(getId()));
         }
     }
 }

@@ -1,7 +1,8 @@
 package com.back.domain.post.post.dto;
 
-public record AdmPostCountResBody(
-        long all
-) {
+import org.springframework.lang.NonNull;
 
+public record AdmPostCountResBody(
+        @NonNull long all
+) {
 }
