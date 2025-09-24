@@ -205,9 +205,9 @@ export interface components {
             content: string;
         };
         RsDataVoid: {
-            resultCode?: string;
-            msg?: string;
-            data?: unknown;
+            resultCode: string;
+            msg: string;
+            data: unknown;
         };
         PostModifyReqBody: {
             title: string;
@@ -231,27 +231,27 @@ export interface components {
             content: string;
         };
         RsDataPostWithAuthorDto: {
-            resultCode?: string;
-            msg?: string;
-            data?: components["schemas"]["PostWithAuthorDto"];
+            resultCode: string;
+            msg: string;
+            data: components["schemas"]["PostWithAuthorDto"];
         };
         PostCommentWriteReqBody: {
             content: string;
         };
         PostCommentDto: {
             /** Format: int64 */
-            id: number;
+            id?: number;
             /** Format: date-time */
-            createDate: string;
+            createDate?: string;
             /** Format: date-time */
-            modifyDate: string;
-            authorName: string;
-            content: string;
+            modifyDate?: string;
+            authorName?: string;
+            content?: string;
         };
         RsDataPostCommentDto: {
-            resultCode?: string;
-            msg?: string;
-            data?: components["schemas"]["PostCommentDto"];
+            resultCode: string;
+            msg: string;
+            data: components["schemas"]["PostCommentDto"];
         };
         MemberJoinReqBody: {
             username: string;
@@ -260,31 +260,31 @@ export interface components {
         };
         MemberDto: {
             /** Format: int64 */
-            id: number;
+            id?: number;
             /** Format: date-time */
-            createDate: string;
+            createDate?: string;
             /** Format: date-time */
-            modifyDate: string;
-            nickname: string;
+            modifyDate?: string;
+            nickname?: string;
         };
         RsDataMemberDto: {
-            resultCode?: string;
-            msg?: string;
-            data?: components["schemas"]["MemberDto"];
+            resultCode: string;
+            msg: string;
+            data: components["schemas"]["MemberDto"];
         };
         MemberLoginReqBody: {
             username: string;
             password: string;
         };
         MemberLoginResBody: {
-            item: components["schemas"]["MemberDto"];
-            apiKey: string;
-            accessToken: string;
+            item?: components["schemas"]["MemberDto"];
+            apiKey?: string;
+            accessToken?: string;
         };
         RsDataMemberLoginResBody: {
-            resultCode?: string;
-            msg?: string;
-            data?: components["schemas"]["MemberLoginResBody"];
+            resultCode: string;
+            msg: string;
+            data: components["schemas"]["MemberLoginResBody"];
         };
         AdmPostCountResBody: {
             /** Format: int64 */
@@ -292,13 +292,13 @@ export interface components {
         };
         MemberWithUsernameDto: {
             /** Format: int64 */
-            id: number;
+            id?: number;
             /** Format: date-time */
-            createDate: string;
+            createDate?: string;
             /** Format: date-time */
-            modifyDate: string;
-            nickname: string;
-            username: string;
+            modifyDate?: string;
+            nickname?: string;
+            username?: string;
         };
         PostDto: {
             /** Format: int64 */
@@ -311,9 +311,9 @@ export interface components {
             content: string;
         };
         RsDataPostDto: {
-            resultCode?: string;
-            msg?: string;
-            data?: components["schemas"]["PostDto"];
+            resultCode: string;
+            msg: string;
+            data: components["schemas"]["PostDto"];
         };
     };
     responses: never;
