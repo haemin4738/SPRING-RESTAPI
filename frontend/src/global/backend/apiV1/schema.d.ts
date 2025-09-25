@@ -240,13 +240,13 @@ export interface components {
         };
         PostCommentDto: {
             /** Format: int64 */
-            id?: number;
+            id: number;
             /** Format: date-time */
-            createDate?: string;
+            createDate: string;
             /** Format: date-time */
-            modifyDate?: string;
-            authorName?: string;
-            content?: string;
+            modifyDate: string;
+            authorName: string;
+            content: string;
         };
         RsDataPostCommentDto: {
             resultCode: string;
