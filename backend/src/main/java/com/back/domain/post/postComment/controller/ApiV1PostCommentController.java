@@ -72,7 +72,7 @@ public class ApiV1PostCommentController {
 
         PostComment postComment = post.findCommentById(id).get();
 
-        postComment.checkAuthorCanDelete(actor);
+        postComment.checkActorCanDelete(actor);
 
         postService.deleteComment(post, postComment);
 
@@ -93,7 +93,7 @@ public class ApiV1PostCommentController {
 
         PostComment postComment = post.findCommentById(id).get();
 
-        postComment.checkAuthorCanModify(actor);
+        postComment.checkActorCanModify(actor);
 
         postService.modifyComment(postComment, reqBody.content());
 
