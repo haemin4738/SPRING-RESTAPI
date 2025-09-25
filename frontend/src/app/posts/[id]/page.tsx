@@ -26,7 +26,7 @@ export default function Page({ params }: { params: Promise<{ id: number }> }) {
     if (!confirm('정말 삭제하시겠습니까?')) return
 
     client
-      .DELETE(`/api/v1/posts/{id}`, {
+      .DELETE('/api/v1/posts/{id}', {
         params: {
           path: {
             id,
@@ -36,9 +36,10 @@ export default function Page({ params }: { params: Promise<{ id: number }> }) {
       .then((res) => {
         if (res.error) {
           alert(res.error.msg)
-          router.replace('/posts')
           return
         }
+        alert(res.data.msg)
+        router.replace('/posts')
       })
   }
 
