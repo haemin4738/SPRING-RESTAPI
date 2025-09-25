@@ -1,75 +1,18 @@
 'use client'
 
-import { use, useEffect, useState } from 'react'
+import { use } from 'react'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
-import { client } from '@/lib/backend/client'
-
-import { components } from '../../../lib/backend/apiV1/schema.d'
 import usePost from './_hooks/usePost'
+import usePostComments from './_hooks/usePostComments'
 
 export default function Page({ params }: { params: Promise<{ id: number }> }) {
-  type PostCommentDto = components['schemas']['PostCommentDto']
-
-  const [postComments, setPostComments] = useState<PostCommentDto[] | null>(
-    null,
-  )
-
   const { id } = use(params)
 
-  const post = usePost(id)
-
-  const router = useRouter()
-
-  const deletePost = (id: number) => {
-    if (!confirm('정말 삭제하시겠습니까?')) return
-
-    client
-      .DELETE('/api/v1/posts/{id}', {
-        params: {
-          path: {
-            id,
-          },
-        },
-      })
-      .then((res) => {
-        if (res.error) {
-          alert(res.error.msg)
-          return
-        }
-        alert(res.data.msg)
-        router.replace('/posts')
-      })
-  }
-
-  const deletePostComment = (id: number, commentId: number) => {
-    if (!confirm('정말 삭제하시겠습니까?')) return
-
-    client
-      .DELETE('/api/v1/posts/{postId}/comments/{id}', {
-        params: {
-          path: {
-            postId: id,
-            id: commentId,
-          },
-        },
-      })
-      .then((res) => {
-        if (res.error) {
-          alert(res.error.msg)
-          return
-        }
-        alert(res.data.msg)
-
-        if (postComments === null) return
-
-        setPostComments(
-          postComments.filter((comment) => comment.id !== commentId),
-        )
-      })
-  }
+  const { post, deletePost } = usePost(id)
+  const { postComments, deletePostComment, writePostComment } =
+    usePostComments(id)
 
   const handleSumbit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -86,49 +29,8 @@ export default function Page({ params }: { params: Promise<{ id: number }> }) {
       return
     }
 
-    client
-      .POST('/api/v1/posts/{postId}/comments', {
-        params: {
-          path: {
-            postId: id,
-          },
-        },
-        body: {
-          content: contentInput.value,
-        },
-      })
-      .then((res) => {
-        if (res.error) {
-          alert(res.error.msg)
-          return
-        }
-
-        alert(res.data.msg)
-        contentInput.value = ''
-
-        if (postComments == null) return
-
-        setPostComments([...postComments, res.data.data])
-      })
+    writePostComment(contentInput.value)
   }
-
-  useEffect(() => {
-    client
-      .GET('/api/v1/posts/{postId}/comments', {
-        params: {
-          path: {
-            postId: id,
-          },
-        },
-      })
-      .then((res) => {
-        if (res.error) {
-          alert(res.error.msg)
-          return
-        }
-        setPostComments(res.data)
-      })
-  }, [id])
 
   if (post === null) return <div>로딩중...</div>
 
@@ -136,22 +38,19 @@ export default function Page({ params }: { params: Promise<{ id: number }> }) {
     <>
       <h1>게시글 상세페이지</h1>
       <>
-        <div>게시글 번호: {post.post?.id}</div>
-        <div>게시글 제목: {post.post?.title}</div>
-        <div>게시글 내용: {post.post?.content}</div>
+        <div>게시글 번호: {post.id}</div>
+        <div>게시글 제목: {post.title}</div>
+        <div>게시글 내용: {post.content}</div>
       </>
 
       <div className="flex gap-2">
         <button
-          onClick={() => deletePost(post.post?.id!)}
+          onClick={() => deletePost(post.id!)}
           className="p-2 rounded border"
         >
           삭제
         </button>
-        <Link
-          className="p-2 rounded border"
-          href={`/posts/${post.post?.id}/edit`}
-        >
+        <Link className="p-2 rounded border" href={`/posts/${post.id}/edit`}>
           수정
         </Link>
       </div>
