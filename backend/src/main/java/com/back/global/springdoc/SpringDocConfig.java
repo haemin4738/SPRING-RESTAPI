@@ -1,4 +1,3 @@
-
 package com.back.global.springdoc;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -13,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition(info = @Info(title="API 서버", version="beta", description = "API 서버 문서입니다."))
 @SecurityScheme(
         name = "bearerAuth",
-        type = SecuritySchemeType.HTTP,
-        bearerFormat = "JWT",
+        type= SecuritySchemeType.HTTP,
+        bearerFormat="JWT",
         scheme = "bearer"
-        )
+)
 public class SpringDocConfig {
     @Bean
     public GroupedOpenApi groupApiV1() {
