@@ -1,42 +1,15 @@
 'use client'
 
-import { components } from '@/global/backend/apiV1/schema'
-import { client } from '@/global/backend/client'
-import { useEffect, useState } from 'react'
+import useAuth from '@/global/auth/hooks/useAuth'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-
-type MemberDto = components['schemas']['MemberDto']
 
 export default function ClientLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const router = useRouter()
-
-  const [loginMember, setLoginMember] = useState<MemberDto | null>(null)
-  const isLogin = loginMember !== null
-
-  useEffect(() => {
-    client.GET('/api/v1/members/me').then((res) => {
-      if (res.error) return
-
-      setLoginMember(res.data.data)
-    })
-  }, [])
-
-  const logout = () => {
-    client.DELETE('/api/v1/members/logout').then((res) => {
-      if (res.error) {
-        alert(res.error.msg)
-        return
-      }
-
-      router.replace('/posts')
-    })
-  }
+  const { loginMember, isLogin, logout } = useAuth()
 
   return (
     <>
