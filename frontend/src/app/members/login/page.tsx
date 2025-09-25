@@ -1,53 +1,52 @@
-"use client";
+'use client'
 
-import { useRouter } from "next/navigation";
+import { client } from '@/global/backend/client'
 
-import { client } from "@/lib/backend/client";
+import { useRouter } from 'next/navigation'
 
 export default function Page() {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleSumbit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const form = e.target as HTMLFormElement;
+    const form = e.target as HTMLFormElement
 
     const usernameInput = form.elements.namedItem(
-      "username",
-    ) as HTMLInputElement;
+      'username',
+    ) as HTMLInputElement
     const passwordInput = form.elements.namedItem(
-      "password",
-    ) as HTMLTextAreaElement;
+      'password',
+    ) as HTMLTextAreaElement
 
-    if (usernameInput.value.trim() === "" || usernameInput.value.length === 0) {
-      alert("아이디 입력해주세요.");
-      usernameInput.focus();
-      return;
+    if (usernameInput.value.trim() === '' || usernameInput.value.length === 0) {
+      alert('아이디 입력해주세요.')
+      usernameInput.focus()
+      return
     }
 
-    if (passwordInput.value.trim() === "" || passwordInput.value.length === 0) {
-      alert("비밀번호를 입력해주세요.");
-      passwordInput.focus();
-      return;
+    if (passwordInput.value.trim() === '' || passwordInput.value.length === 0) {
+      alert('비밀번호를 입력해주세요.')
+      passwordInput.focus()
+      return
     }
-
 
     client
-      .POST(`/api/v1/members/login`, {
+      .POST('/api/v1/members/login', {
         body: {
           username: usernameInput.value,
           password: passwordInput.value,
         },
-      }).then((res) => {
+      })
+      .then((res) => {
         if (res.error) {
           alert(res.error.msg)
         }
-        alert(res.data && res.data.msg)   
-          router.replace('/posts')
-          return
-        })
-      }
-  
+
+        alert(res.data && res.data.msg)
+        router.replace(`/posts`)
+      })
+  }
 
   return (
     <>
@@ -73,5 +72,5 @@ export default function Page() {
         </button>
       </form>
     </>
-  );
+  )
 }
