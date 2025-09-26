@@ -36,9 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
-
 ### Custom ###
 db_dev.mv.db
-de_dev.trace.db
+db_dev.trace.db
 
 application-secret.yml
+.env
