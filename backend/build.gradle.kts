@@ -6,7 +6,7 @@ plugins {
 
 group = "com"
 version = "0.0.1-SNAPSHOT"
-description = "RESTAPI-0903"
+description = "14526-1"
 
 java {
     toolchain {
@@ -38,13 +38,14 @@ dependencies {
     // DB 관련
     runtimeOnly("com.h2database:h2")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // spring doc
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
-
-    // JWT
+    // jwt
     implementation("io.jsonwebtoken:jjwt-api:0.12.6")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
-
+    // oauth2
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 }
 
 tasks.withType<Test> {
