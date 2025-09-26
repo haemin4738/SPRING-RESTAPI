@@ -60,23 +60,21 @@ public class ApiV1AdmMemberControllerTest {
                     .andExpect(jsonPath("$[%d].createDate".formatted(i)).value(Matchers.startsWith(member.getCreateDate().toString().substring(0, 20))))
                     .andExpect(jsonPath("$[%d].modifyDate".formatted(i)).value(Matchers.startsWith(member.getModifyDate().toString().substring(0, 20))))
                     .andExpect(jsonPath("$[%d].nickname".formatted(i)).value(member.getNickname()))
-                    .andExpect(jsonPath("$[%d].username".formatted(i)).value(member.getUsername()));
+                    .andExpect(jsonPath("$[%d].username".formatted(i)).value(member.getUsername()))
+                    .andExpect(jsonPath("$[%d].isAdmin".formatted(i)).value(member.isAdmin()));
         }
     }
 
     @Test
     @DisplayName("회원 단건조회")
+    @WithUserDetails("admin")
     void t2() throws Exception {
-        Member actor = memberService.findByUsername("admin").get();
-        String actorApiKey = actor.getApiKey();
-
         long id = 1;
 
         //요청을 보냅니다.
         ResultActions resultActions = mvc
                 .perform(
                         get("/api/v1/adm/members/" + id)
-                                .header("Authorization", "Bearer " + actorApiKey)
                 )
                 .andDo(print()); // 응답을 출력합니다.
 
@@ -88,19 +86,17 @@ public class ApiV1AdmMemberControllerTest {
                 .andExpect(jsonPath("$.createDate").value(Matchers.startsWith(member.getCreateDate().toString().substring(0, 20))))
                 .andExpect(jsonPath("$.modifyDate").value(Matchers.startsWith(member.getModifyDate().toString().substring(0, 20))))
                 .andExpect(jsonPath("$.nickname").value(member.getNickname()))
-                .andExpect(jsonPath("$.username").value(member.getUsername()));
+                .andExpect(jsonPath("$.username").value(member.getUsername()))
+                .andExpect(jsonPath("$.isAdmin").value(member.isAdmin()));
     }
 
     @Test
     @DisplayName("다건조회, without permission")
+    @WithUserDetails("user1")
     void t3() throws Exception {
-        Member actor = memberService.findByUsername("user1").get();
-        String actorApiKey = actor.getApiKey();
-
         ResultActions resultActions = mvc
                 .perform(
                         get("/api/v1/adm/members")
-                                .header("Authorization", "Bearer " + actorApiKey)
                 )
                 .andDo(print());
 
@@ -112,16 +108,13 @@ public class ApiV1AdmMemberControllerTest {
 
     @Test
     @DisplayName("단건조회, without permission")
+    @WithUserDetails("user1")
     void t4() throws Exception {
         int id = 1;
-
-        Member actor = memberService.findByUsername("user1").get();
-        String actorApiKey = actor.getApiKey();
 
         ResultActions resultActions = mvc
                 .perform(
                         get("/api/v1/adm/members/" + id)
-                                .header("Authorization", "Bearer " + actorApiKey)
                 )
                 .andDo(print());
 
