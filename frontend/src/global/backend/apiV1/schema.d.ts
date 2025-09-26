@@ -260,12 +260,13 @@ export interface components {
         };
         MemberDto: {
             /** Format: int64 */
-            id?: number;
+            id: number;
             /** Format: date-time */
-            createDate?: string;
+            createDate: string;
             /** Format: date-time */
-            modifyDate?: string;
-            nickname?: string;
+            modifyDate: string;
+            nickname: string;
+            isAdmin: boolean;
         };
         RsDataMemberDto: {
             resultCode: string;
@@ -292,13 +293,14 @@ export interface components {
         };
         MemberWithUsernameDto: {
             /** Format: int64 */
-            id?: number;
+            id: number;
             /** Format: date-time */
-            createDate?: string;
+            createDate: string;
             /** Format: date-time */
-            modifyDate?: string;
-            nickname?: string;
-            username?: string;
+            modifyDate: string;
+            nickname: string;
+            username: string;
+            isAdmin: boolean;
         };
         PostDto: {
             /** Format: int64 */
