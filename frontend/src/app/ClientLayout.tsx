@@ -1,25 +1,19 @@
 'use client'
 
-import useAuth from '@/global/auth/hooks/useAuth'
-import { createContext } from 'react'
+import { useAuthContext } from '@/global/auth/hooks/useAuth'
 
 import Link from 'next/link'
-
-export const AuthContext = createContext<ReturnType<typeof useAuth> | null>(
-  null,
-)
 
 export default function ClientLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const authState = useAuth()
-
-  const { loginMember, isLogin, logout } = authState
+  const authState = useAuthContext()
+  const { isLogin, loginMember, logout } = authState
 
   return (
-    <AuthContext value={authState}>
+    <>
       <header>
         <nav className="flex">
           <Link href="/" className="p-2 rounded hover:bg-gray-100">
@@ -55,6 +49,6 @@ export default function ClientLayout({
       </header>
       <main className="flex-1 flex flex-col">{children}</main>
       <footer className="text-center p-2">풋터</footer>
-    </AuthContext>
+    </>
   )
 }
