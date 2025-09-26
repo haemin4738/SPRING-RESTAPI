@@ -10,6 +10,7 @@ export default function useAuth() {
 
   const [loginMember, setLoginMember] = useState<MemberDto | null>(null)
   const isLogin = loginMember !== null
+  const isAmdin = isLogin && loginMember.isAdmin
 
   useEffect(() => {
     client.GET('/api/v1/members/me').then((res) => {
@@ -34,13 +35,20 @@ export default function useAuth() {
   }
 
   if (isLogin)
-    return { isLogin: true, loginMember, logout, setLoginMember } as const
+    return {
+      isLogin: true,
+      loginMember,
+      logout,
+      setLoginMember,
+      isAmdin,
+    } as const
 
   return {
     isLogin: false,
     loginMember: null,
     logout,
     setLoginMember,
+    isAmdin,
   } as const
 }
 
@@ -59,9 +67,9 @@ export function useAuthContext() {
 export function AuthProvider({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
-  const authState = useAuth();
+  const authState = useAuth()
 
-  return <AuthContext value={authState}>{children}</AuthContext>;
+  return <AuthContext value={authState}>{children}</AuthContext>
 }
