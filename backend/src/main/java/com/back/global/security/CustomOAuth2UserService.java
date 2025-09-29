@@ -50,7 +50,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             case "NAVER" -> {
                 Map<String, Object> attributes = oAuth2User.getAttributes();
-                Map<String, Object> attributesProperties = (Map<String, Object>) attributes.get("properties");
+                Map<String, Object> attributesProperties = (Map<String, Object>) attributes.get("response");
 
                 oauthUserId = (String) attributesProperties.get("id");
                 nickname = (String) attributesProperties.get("nickname");
