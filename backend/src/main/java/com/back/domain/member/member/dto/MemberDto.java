@@ -18,9 +18,10 @@ public record MemberDto(
                 member.getId(),
                 member.getCreateDate(),
                 member.getModifyDate(),
+
                 member.getNickname(),
                 member.isAdmin(),
-                member.getProfileImgUrl()
+                member.getProfileImgUrlDefault()
         );
     }
 }
