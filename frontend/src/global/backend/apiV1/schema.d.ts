@@ -279,9 +279,9 @@ export interface components {
             password: string;
         };
         MemberLoginResBody: {
-            item?: components["schemas"]["MemberDto"];
-            apiKey?: string;
-            accessToken?: string;
+            item: components["schemas"]["MemberDto"];
+            apiKey: string;
+            accessToken: string;
         };
         RsDataMemberLoginResBody: {
             resultCode: string;
